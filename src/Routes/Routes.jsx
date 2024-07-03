@@ -7,6 +7,8 @@ import Login from "../pages/Login/Login";
 import SignIn from "../pages/SignIn/SignIn";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import DonationRequest from "../pages/DonationRequest/DonationRequest";
+import Details from "../pages/Details/Details";
 
  export const router = createBrowserRouter([
     {
@@ -24,6 +26,14 @@ import Dashboard from "../pages/Dashboard/Dashboard";
         {
           path: '/signin',
           element: <SignIn></SignIn>
+        },
+        {
+          path: '/donation',
+          element: <DonationRequest></DonationRequest>
+        },
+        {
+          path: '/detail/:id',
+          element:<Details></Details>
         },
         {
           path:"/dashboard",
