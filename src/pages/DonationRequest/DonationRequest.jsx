@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const DonationRequest = () => {
     const [requests, setRequests] = useState([]);
-
+    
     useEffect(() => {
         fetch('http://localhost:5000/request')
             .then(res => res.json())
@@ -38,9 +38,9 @@ const DonationRequest = () => {
                         <p>Location: {request.recipientDistrict}</p>
                         <p>Date: {request.donationDate}</p>
                         <p>Time: {request.donationTime}</p>
-                        <Link to={`/detail/${request._id}`} className="text-blue-500">
-                            View
-                        </Link>
+                        <Link to={`/details/${request._id}`} className="text-blue-500">
+                                View
+                            </Link>
                     </motion.div>
                 ))}
             </div>

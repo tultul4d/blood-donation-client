@@ -8,7 +8,10 @@ import SignIn from "../pages/SignIn/SignIn";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import DonationRequest from "../pages/DonationRequest/DonationRequest";
-import Details from "../pages/Details/Details";
+import RequstDetails from "../pages/RequstDetails/RequstDetails";
+import ContentManagement from "../pages/ContentManagement/ContentManagement";
+import AddBlog from "../pages/AddBlog/AddBlog";
+
 
  export const router = createBrowserRouter([
     {
@@ -31,14 +34,23 @@ import Details from "../pages/Details/Details";
           path: '/donation',
           element: <DonationRequest></DonationRequest>
         },
-        {
-          path: '/detail/:id',
-          element:<Details></Details>
-        },
+       
         {
           path:"/dashboard",
           element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
-        }
+        },
+        {
+          path: '/details/:id',
+          element: <RequstDetails></RequstDetails>
+        },
+        {
+          path: "/dashboard/content-management",
+          element: <ContentManagement />
+      },
+      {
+          path: "/dashboard/content-management/add-blog",
+          element: <AddBlog />
+      },
       ]
     },
   ]);
