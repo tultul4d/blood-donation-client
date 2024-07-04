@@ -11,6 +11,7 @@ import DonationRequest from "../pages/DonationRequest/DonationRequest";
 import RequstDetails from "../pages/RequstDetails/RequstDetails";
 import ContentManagement from "../pages/ContentManagement/ContentManagement";
 import AddBlog from "../pages/AddBlog/AddBlog";
+import BlogPage from "../pages/BlogPage/BlogPage";
 
 
  export const router = createBrowserRouter([
@@ -41,7 +42,8 @@ import AddBlog from "../pages/AddBlog/AddBlog";
         },
         {
           path: '/details/:id',
-          element: <RequstDetails></RequstDetails>
+          element: <RequstDetails></RequstDetails>,
+          loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
         },
         {
           path: "/dashboard/content-management",
@@ -51,6 +53,10 @@ import AddBlog from "../pages/AddBlog/AddBlog";
           path: "/dashboard/content-management/add-blog",
           element: <AddBlog />
       },
+      {
+        path: "/blogs",
+        element: <BlogPage></BlogPage>
+      }
       ]
     },
   ]);

@@ -1,36 +1,44 @@
 // import { useLoaderData } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
-import { useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 
 const RequstDetails = () => {
-    const { id } = useParams();
-  const [request, setRequest] = useState();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+    const request = useLoaderData();
+    console.log(request);
+    // const { id } = useParams();
+    // const [request, setRequest] = useState(null);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const donorName = 'Logged In User Name'; 
+    const donorEmail = 'loggedinuser@example.com';
   
-  const donorName = 'Logged In User Name'; 
-  const donorEmail = 'loggedinuser@example.com';
-
-
-  useEffect(() => {
-    fetch(`http://localhost:5000/request/${id}`)
-      .then((res) => {
-        // if (!res.ok) {
-        //   throw new Error(`HTTP error! status: ${res.status}`);
-        // }
-        return res.json();
-      })
-      .then((data) => setRequest(data))
-      .catch((error) => console.error('Error fetching request:', error));
-  }, [id]);
+    // useEffect(() => {
+    //   fetch(`http://localhost:5000/request/${id}`)
+    //     .then((res) => {
+    //       if (!res.ok) {
+    //         throw new Error(`HTTP error! status: ${res.status}`);
+    //       }
+    //       return res.json();
+    //     })
+    //     .then((data) => setRequest(data))
+    //     .catch((error) => {
+    //       console.error('Error fetching request:', error);
+    //       return error.response ? error.response.text() : null;
+    //     })
+    //     .then((text) => {
+    //       console.log('Raw response text:', text);
+    //     });
+    // }, [id]);
+//   console.log(data);
 
   const handleDonate = () => {
     setModalIsOpen(true);
   };
 
   const handleConfirmDonation = () => {
-    fetch(`http://localhost:5000/request/${id}`, {
+    fetch(`http://localhost:5000/request/${_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
