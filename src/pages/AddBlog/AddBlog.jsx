@@ -1,19 +1,24 @@
 import JoditEditor from "jodit-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 
 
 const AddBlog = () => {
 
     const [title, setTitle] = useState('');
-    const [thumbnail, setThumbnail] = useState('');
+    // const [thumbnail, setThumbnail] = useState('');
     const [content, setContent] = useState('');
+    const [img, setImg] = useState('');
+    const [name, setName] = useState('');
+    const [date, setDate] = useState('');
+    const [excerpt, setExcerpt] = useState('');
     const navigate = useNavigate();
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newBlog = { title, thumbnail, content };
+        const newBlog = { title,  content, img, name, date, excerpt };
         fetch('http://localhost:5000/blogs', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -26,9 +31,15 @@ const AddBlog = () => {
         .catch(error => console.error('Error adding blog:', error));
     };
     return (
-        <div className="container">
+        
+        <section>
+             <SectionTitle 
+            heading= "Form Our Blog"
+            subHeading="Add Blog  "
+           ></SectionTitle>
+            <div className="container">
             <div className="formWrapper">
-                <h2 className="heading  text-center mt-10 text-3xl font-semibold ">Add Blog</h2>
+                {/* <h2 className="heading  text-center mt-10 text-3xl font-semibold ">Add Blog</h2> */}
                 <form onSubmit={handleSubmit} className="form">
                     <div className="formGroup">
                         <label className="label text-base font-serif text-slate-900">Title</label>
@@ -46,7 +57,7 @@ const AddBlog = () => {
                         <input 
                             type="text" 
                             // value={thumbnail} 
-                            onChange={(e) => setThumbnail(e.target.value)} 
+                            onChange={(e) => setImg(e.target.value)} 
                             required 
                             className="input w-full"
                         />
@@ -58,7 +69,7 @@ const AddBlog = () => {
                         <input 
                             type="text" 
                             // value={thumbnail} 
-                            onChange={(e) => setThumbnail(e.target.value)} 
+                            onChange={(e) => setName(e.target.value)} 
                             required 
                             className="input w-full"
                         />
@@ -69,7 +80,7 @@ const AddBlog = () => {
                         <input 
                             type="text" 
                             // value={thumbnail} 
-                            onChange={(e) => setThumbnail(e.target.value)} 
+                            onChange={(e) => setDate(e.target.value)} 
                             required 
                             className="input w-full"
                         />
@@ -80,12 +91,12 @@ const AddBlog = () => {
                         <input 
                             type="text" 
                             // value={thumbnail} 
-                            onChange={(e) => setThumbnail(e.target.value)} 
+                            onChange={(e) => setExcerpt(e.target.value)} 
                             required 
                             className="input w-full"
                         />
                     </div>
-                    <div className="formGroup">
+                    {/* <div className="formGroup">
                       
                         <label className="label text-base font-serif text-slate-900">Image</label>
                         <input 
@@ -95,7 +106,7 @@ const AddBlog = () => {
                             required 
                             className="input w-full"
                         />
-                    </div>
+                    </div> */}
                   <div className="formGroup">
                         <label className="label text-base font-serif text-slate-900">Content</label>
                         <JoditEditor 
@@ -122,6 +133,7 @@ const AddBlog = () => {
                 </form>
             </div>
         </div>
+        </section>
     );
 };
 

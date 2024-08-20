@@ -1,6 +1,7 @@
 import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 
 
 const ContentManagement = () => {
@@ -40,29 +41,46 @@ const ContentManagement = () => {
             .catch(error => console.error('Error deleting blog:', error));
     };
     return (
-        <div>
-        <h2>Content Management</h2>
-        <button onClick={() => navigate('/dashboard/content-management/add-blog')}>Add Blog</button>
-        <select onChange={(e) => setFilter(e.target.value)}>
+        <section>
+            <SectionTitle 
+            heading= "Content Management"
+            subHeading=" Manage and Organize Your Blogs "
+           ></SectionTitle>
+            <div>
+        {/* <h2 className="text-center mt-10  font-bold text-3xl">Content Management</h2> */}
+        <div className="text-center mx-auto mt-10">
+        <button className="text-xl font-serif gap-4 mr-8" onClick={() => navigate('/dashboard/content-management/add-blog')}>Add Blog</button>
+        <select className="" onChange={(e) => setFilter(e.target.value)}>
             <option value="">All</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
         </select>
-        <div>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-10">
             {blogs.map(blog => (
                 <div key={blog._id}>
-                    <h3>{blog.title}</h3>
-                    <p>Status: {blog.status}</p>
+                    <div className="card bg-base-100 w-96 shadow-xl">
+  <div className="card-body">
+    <h2 className="card-title">{blog.title}</h2>
+    <p></p>
+  </div>
+  <figure>
+    <img
+      src={blog.img}
+      alt="Shoes" />
+  </figure>
+</div>
                     {blog.status === 'draft' ? (
-                        <button onClick={() => handlePublish(blog._id, 'published')}>Publish</button>
+                        <button className="btn btn-outline btn-info  " onClick={() => handlePublish(blog._id, 'published')}>Publish</button>
                     ) : (
-                        <button onClick={() => handlePublish(blog._id, 'draft')}>Unpublish</button>
+                        <button className="btn btn-outline btn-info mt-10" onClick={() => handlePublish(blog._id, 'draft')}>Unpublish</button>
                     )}
-                    <button onClick={() => handleDelete(blog._id)}>Delete</button>
+                    <button className="btn btn-outline btn-info mt-10" onClick={() => handleDelete(blog._id)}>Delete</button>
                 </div>
             ))}
         </div>
     </div>
+        </section>
     );
 };
 

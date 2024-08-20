@@ -12,6 +12,7 @@ import RequstDetails from "../pages/RequstDetails/RequstDetails";
 import ContentManagement from "../pages/ContentManagement/ContentManagement";
 import AddBlog from "../pages/AddBlog/AddBlog";
 import BlogPage from "../pages/BlogPage/BlogPage";
+import BlogDetails from "../pages/BlogDetails/BlogDetails";
 
 
  export const router = createBrowserRouter([
@@ -56,6 +57,10 @@ import BlogPage from "../pages/BlogPage/BlogPage";
       {
         path: "/blogs",
         element: <BlogPage></BlogPage>
+      },
+      {
+        path: "/blogs/:id",
+        element:<BlogDetails></BlogDetails>
       }
       ]
     },
