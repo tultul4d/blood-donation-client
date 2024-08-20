@@ -26,24 +26,102 @@ const AddBlog = () => {
         .catch(error => console.error('Error adding blog:', error));
     };
     return (
-        <div>
-        <h2>Add Blog</h2>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Title</label>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <div className="container">
+            <div className="formWrapper">
+                <h2 className="heading  text-center mt-10 text-3xl font-semibold ">Add Blog</h2>
+                <form onSubmit={handleSubmit} className="form">
+                    <div className="formGroup">
+                        <label className="label text-base font-serif text-slate-900">Title</label>
+                        <input 
+                            type="text" 
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            required 
+                            className="input w-full"
+                        />
+                    </div>
+                    <div className="formGroup">
+                      
+                        <label className="label text-base font-serif text-slate-900">Thumbnail</label>
+                        <input 
+                            type="text" 
+                            // value={thumbnail} 
+                            onChange={(e) => setThumbnail(e.target.value)} 
+                            required 
+                            className="input w-full"
+                        />
+                    </div>
+
+                    <div className="formGroup">
+                      
+                        <label className="label text-base font-serif text-slate-900">Writer Name</label>
+                        <input 
+                            type="text" 
+                            // value={thumbnail} 
+                            onChange={(e) => setThumbnail(e.target.value)} 
+                            required 
+                            className="input w-full"
+                        />
+                    </div>
+                    <div className="formGroup">
+                      
+                        <label className="label text-base font-serif text-slate-900">Publication Date</label>
+                        <input 
+                            type="text" 
+                            // value={thumbnail} 
+                            onChange={(e) => setThumbnail(e.target.value)} 
+                            required 
+                            className="input w-full"
+                        />
+                    </div>
+                    <div className="formGroup">
+                      
+                        <label className="label text-base font-serif text-slate-900">Excerpt</label>
+                        <input 
+                            type="text" 
+                            // value={thumbnail} 
+                            onChange={(e) => setThumbnail(e.target.value)} 
+                            required 
+                            className="input w-full"
+                        />
+                    </div>
+                    <div className="formGroup">
+                      
+                        <label className="label text-base font-serif text-slate-900">Image</label>
+                        <input 
+                            type="text" 
+                            // value={thumbnail} 
+                            onChange={(e) => setThumbnail(e.target.value)} 
+                            required 
+                            className="input w-full"
+                        />
+                    </div>
+                  <div className="formGroup">
+                        <label className="label text-base font-serif text-slate-900">Content</label>
+                        <JoditEditor 
+                            value={content} 
+                            onChange={(newContent) => setContent(newContent)} 
+                            className="editor"
+                        />
+                    </div>
+                    <button type="submit" className="button text-center w-auto mt-10"   style={{
+        display: 'block',
+        padding: '10px 20px',
+        fontSize: '16px',
+        fontWeight: 'bold',
+        color: '#fff',
+        backgroundColor: '#28a745',
+        border: 'none',
+        borderRadius: '25px',
+        cursor: 'pointer',
+        textAlign: 'center',
+        marginTop: '20px',
+    }}
+    onMouseOver={(e) => e.target.style.backgroundColor = '#218838'}
+    onMouseOut={(e) => e.target.style.backgroundColor = '#28a745'}>Create</button>
+                </form>
             </div>
-            <div>
-                <label>Thumbnail</label>
-                <input type="text" value={thumbnail} onChange={(e) => setThumbnail(e.target.value)} required />
-            </div>
-            <div>
-                <label>Content</label>
-                <JoditEditor value={content} onChange={(newContent) => setContent(newContent)} />
-            </div>
-            <button type="submit">Create</button>
-        </form>
-    </div>
+        </div>
     );
 };
 
