@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BlogDetails = () => {
     const { id } = useParams();
@@ -45,13 +45,32 @@ const BlogDetails = () => {
     }
 
     return (
-        <div className="container mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
-            <img src={blog.img} alt={blog.title} className="w-full h-auto mb-6" />
-            <p className="mb-4"><strong>Author:</strong> {blog.name}</p>
-            <p className="mb-4"><strong>Date:</strong> {blog.date}</p>
-            <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
-        </div>
+        <div className="hero bg-base-200 min-h-screen">
+  <div className="hero-content flex-col lg:flex-row">
+    <img
+      src={blog.img}
+      className="max-w-sm rounded-lg shadow-2xl" />
+    <div className="">
+      <h1 className="text-2xl font-bold">{blog.title}</h1>
+      <p className="py-4">
+        {blog.
+excerpt}
+      </p>
+      <p> <span className="font-semibold  mt-10 mb-16">Donor Name:</span>{blog.
+name}</p>
+<p> <span className="font-semibold">Published Date:</span>{blog.
+date}</p>
+<p> <span className="font-semibold">Publication Status:</span>{blog.
+status}</p>
+
+<div className="mt-10 float-none" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+
+<Link to={"/blogs"}><button className="btn btn-active btn-accent mt-10">Go Back</button></Link>
+    </div>
+    
+  </div>
+  
+</div>
     );
 };
 

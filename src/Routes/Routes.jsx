@@ -60,7 +60,7 @@ import BlogDetails from "../pages/BlogDetails/BlogDetails";
       },
       {
         path: "/blogs/:id",
-        element:<BlogDetails></BlogDetails>
+        element:<BlogDetails></BlogDetails>,
       }
       ]
     },
