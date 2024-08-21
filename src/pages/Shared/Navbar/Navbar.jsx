@@ -17,7 +17,7 @@ const Navbar = () => {
      
     <li><Link to="/donation">Donation Requests</Link></li>
     <li><Link to="/blogs">blog</Link></li>
-    <li><Link to="/dashboard">Dashboard</Link></li>
+    <li><Link to="/dashboard/profile">Dashboard</Link></li>
     
     {
       user ? <>
