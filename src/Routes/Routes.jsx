@@ -5,7 +5,7 @@ import Home from "../pages/Home/Home/Home";
 import Main from "../Layout/Main";
 import Login from "../pages/Login/Login";
 import SignIn from "../pages/SignIn/SignIn";
-import PrivateRoute from "./PrivateRoute";
+// import PrivateRoute from "./PrivateRoute";
 // import Dashboard from "../pages/Dashboard/Dashboard";
 import DonationRequest from "../pages/DonationRequest/DonationRequest";
 import RequstDetails from "../pages/RequstDetails/RequstDetails";
@@ -17,6 +17,7 @@ import Profile from "../pages/Dashboard/Profile/Profile";
 import Dashboard from "../Layout/Dashboard";
 import Donor from "../pages/Dashboard/Donor";
 import AddRequst from "../pages/AddRequst/AddRequst";
+import RequstUpdate from "../pages/Dashboard/RequstUpdate";
 
 
  export const router = createBrowserRouter([
@@ -84,6 +85,11 @@ import AddRequst from "../pages/AddRequst/AddRequst";
         {
           path:"/dashboard/donor",
           element:<Donor></Donor>
+        },
+        {
+          path: "/dashboard/edit/:id",
+          element:<RequstUpdate></RequstUpdate>,
+          loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
         }
       ]
     }
