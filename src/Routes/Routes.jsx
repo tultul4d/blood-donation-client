@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home/Home";
 import Main from "../Layout/Main";
 import Login from "../pages/Login/Login";
 import SignIn from "../pages/SignIn/SignIn";
+
 // import PrivateRoute from "./PrivateRoute";
 // import Dashboard from "../pages/Dashboard/Dashboard";
 import DonationRequest from "../pages/DonationRequest/DonationRequest";
@@ -18,6 +19,9 @@ import Dashboard from "../Layout/Dashboard";
 import Donor from "../pages/Dashboard/Donor";
 import AddRequst from "../pages/AddRequst/AddRequst";
 import RequstUpdate from "../pages/Dashboard/RequstUpdate";
+import RequstView from "../pages/Dashboard/RequstView";
+import AllRequst from "../pages/Dashboard/AllRequst";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
 
  export const router = createBrowserRouter([
@@ -90,6 +94,22 @@ import RequstUpdate from "../pages/Dashboard/RequstUpdate";
           path: "/dashboard/edit/:id",
           element:<RequstUpdate></RequstUpdate>,
           loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
+        },
+        {
+          path: "/dashboard/view/:id",
+          element: <RequstView></RequstView>,
+          loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
+        },
+        {
+          path: "/dashboard/my-donation-requests",
+          element: <AllRequst></AllRequst>
+        },
+
+        // admin
+
+        {
+          path: "/dashboard/allUser",
+          element:<AllUsers></AllUsers>
         }
       ]
     }

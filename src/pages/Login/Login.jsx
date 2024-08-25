@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/SocialLogin";
 
 
 const Login = () => {
@@ -55,7 +56,9 @@ const Login = () => {
         </div>
       </form>
       <p><small>New Here? <Link to="/signin">SingIn</Link></small></p>
+      <SocialLogin></SocialLogin>
     </div>
+    
   </div>
 </div>
 </>

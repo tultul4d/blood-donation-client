@@ -1,18 +1,14 @@
-
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 
 
-const Donor = () => {
-
+const AllRequst = () => {
     const [donationRequests, setDonationRequests] = useState([]);
     const [userName, setUserName] = useState('');
-    // const [request, setRequest] = useState([]); // Fetch from user context or API
     const { user } = useContext(AuthContext);
-    // const remaining = donationRequests.filter(donor => donor.email === user?.email);
-    // console.log(remaining);
-
     useEffect(() => {
         // Fetch the donor's name and donation requests (limit 3)
         fetch('http://localhost:5000/request')
@@ -20,12 +16,11 @@ const Donor = () => {
             .then(data => {
                 const userRequests = data.filter(request => request.requesterEmail === user?.email);
                 // Take only the 3 most recent requests
-                setDonationRequests(userRequests.slice(0, 3));
+                setDonationRequests(userRequests);
                 // Fetch donor's name
                 setUserName('Donor Name');
             });
     }, [user?.email]);
-
 
     const changeStatus = (id, newStatus) => {
         fetch(`http://localhost:5000/request/${id}/status`, {
@@ -68,26 +63,14 @@ const Donor = () => {
                 setDonationRequests(prevRequests => [...prevRequests, donationRequests.find(request => request._id === id)]);
             });
     };
-    
-
-    // const handleDelete = (id) => {
-    //     fetch(`http://localhost:5000/request/${id}`, { method: 'DELETE' })
-    //         .then(res => res.json())
-    //         .then(() => {
-    //             const updatedRequest = request.filter(request => request._id !== id);
-    //             setRequest(updatedRequest);
-    //         })
-    //         .catch(error => console.error('Error deleting blog:', error));
-    // };
-    console.log(userName);
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="lg:text-3xl md:text-xl font-semibold mb-6">Welcome, {user?.displayName
+            <h1 className="text-3xl font-semibold mb-6">Welcome, {user?.displayName
             }!</h1>
 
-            {donationRequests.length > 0 ? (
-                <div className="lg:overflow-x-auto ">
-                    <table className="lg:min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+            {/* {donationRequests.length > 0 ? ( */}
+                <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
                         <thead className="bg-gray-200">
                             <tr>
                                 <th className="py-3 px-6 text-left text-gray-700">Recipient Name</th>
@@ -154,14 +137,14 @@ const Donor = () => {
                         </tbody>
                     </table>
                 </div>
-            ) : (
+            {/* ) : (
                 <p>No donation requests yet.</p>
-            )}
-            <Link to="/dashboard/my-donation-requests" className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                View My All Requests
+            )} */}
+            <Link to="/addRequst" className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                Go Back Requst
             </Link>
         </div>
     );
 };
 
-export default Donor;
+export default AllRequst;

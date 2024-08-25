@@ -1,9 +1,11 @@
 
-import { useLoaderData } from "react-router-dom";
+import { data } from "autoprefixer";
+import {  useLoaderData, useNavigate } from "react-router-dom";
 
 
 const RequstUpdate = () => {
     const request = useLoaderData();
+    const navigate = useNavigate();
     const handleUpdate = event =>{
         event.preventDefault();
         const form = event.target;
@@ -26,16 +28,17 @@ const RequstUpdate = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            navigate('/dashboard/donor');
         })
+        .catch(error => console.error('Error adding blog:', error));
     };
-  
+  console.log(data);
    
     return (
         <div>
             {/* <h3>Update infomm {loadedProduct.name}</h3> */}
             <form onSubmit={handleUpdate}>
-                <input type="text" name="hospitalName"  defaultValue={request?.hospitalName}/>
+                <input type="text" className="w-full" name="hospitalName"  defaultValue={request?.hospitalName}/>
                 <br />
                 <input type="text" name="fullAddress"  defaultValue={request?.fullAddress}/>
                 <br />
