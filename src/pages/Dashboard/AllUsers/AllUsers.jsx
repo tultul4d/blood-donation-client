@@ -2,7 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 // import { FaTrashAlt, FaUser } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { FaUser } from "react-icons/fa";
+import { FaTrashAlt, FaUser } from "react-icons/fa";
+import { MdOutlineBlock } from "react-icons/md";
+import { CgUnblock } from "react-icons/cg";
+
 
 
 const AllUsers = () => {
@@ -35,6 +38,68 @@ const AllUsers = () => {
       }
   })
        }
+
+
+       const handleDeleteUser = user =>{
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            refetch();
+            if (result.isConfirmed) {
+            
+            axiosSecure.delete(`/user/${user._id}`)
+            .then(res =>{
+                if(res.data.deleteCount > 0){
+  Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
+                }
+            })
+            }
+          });
+     }
+
+     const handleBlockUser = user => {
+        axiosSecure.patch(`/user/block/${user._id}`)
+        .then(res => {
+            if(res.data.modifiedCount > 0){
+                refetch();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `${user.name} has been blocked.`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
+
+    
+    const handleUnblockUser = user => {
+        axiosSecure.patch(`/user/unblock/${user._id}`)
+        .then(res => {
+            if(res.data.modifiedCount > 0){
+                refetch();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `${user.name} has been unblocked.`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
+    
     return (
         <div>
         <div className="flex justify-evenly my-4">
@@ -49,28 +114,44 @@ const AllUsers = () => {
     <th></th>
     <th>Name</th>
     <th>email</th>
-    <th>Roll</th>
+    <th>Role</th>
     <th>Action</th>
+    <th>Delate</th>
   </tr>
 </thead>
 <tbody>
-  {
-    users.map((user, index) => <tr key={user._id}>
-        <th>{index + 1}</th>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td>
-        {
-          user.role === 'admin' ? 'Admin' :   <button onClick={() => handleMakeAdmin(user)} className="btn  btn-lg"> <FaUser
-            className="text-red-600"></FaUser></button>
-        }
-        </td>
-        <td>
-        {/* <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-lg"> <FaTrashAlt
-         className="text-red-600"></FaTrashAlt></button> */}
-        </td>
-      </tr> )
-  }
+{
+    users.map((user, index) => (
+        <tr key={user._id}>
+            <th>{index + 1}</th>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            <td>
+                {user.role === 'admin' ? 'Admin' : 
+                    <button onClick={() => handleMakeAdmin(user)} className="btn btn-lg">
+                      
+                        <FaUser className="text-red-600" />
+                    </button>}
+            </td>
+            <td>
+                {user.status === 'active' ? (
+                    <button onClick={() => handleBlockUser(user)} className="btn btn-ghost btn-lg">
+                          <MdOutlineBlock />
+                    </button>
+                ) : (
+                    <button onClick={() => handleUnblockUser(user)} className="btn btn-ghost btn-lg">
+                     <CgUnblock />
+                    </button>
+                )}
+            </td>
+            <td>
+                <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-lg">
+                    <FaTrashAlt className="text-red-600" />
+                </button>
+            </td>
+        </tr>
+    ))
+}
  
 
  
