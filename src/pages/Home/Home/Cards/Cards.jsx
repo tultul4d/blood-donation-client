@@ -20,7 +20,7 @@ const Cards = () => {
             subHeading="best problroewihg  "
            ></SectionTitle>
 
-           <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
+           <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 lg:gap-6  md:gap-2 mt-10">
               {
                 request.map(item => <RequestItem key={item._id} item={item}></RequestItem>)
               }

@@ -22,6 +22,7 @@ import RequstUpdate from "../pages/Dashboard/RequstUpdate";
 import RequstView from "../pages/Dashboard/RequstView";
 import AllRequst from "../pages/Dashboard/AllRequst";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import AdmineHome from "../pages/Dashboard/AdmineHome";
 
 
  export const router = createBrowserRouter([
@@ -110,6 +111,10 @@ import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
         {
           path: "/dashboard/allUser",
           element:<AllUsers></AllUsers>
+        },
+        {
+          path: "/dashboard/adminHome",
+          element: <AdmineHome></AdmineHome>
         }
       ]
     }
