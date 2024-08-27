@@ -25,6 +25,8 @@ import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AdmineHome from "../pages/Dashboard/AdmineHome";
 import AdminRoute from "./AdminRoutes";
 import AllBloodDonationRequestPage from "../pages/Dashboard/AllBloodDonationRequestPage";
+import PrivateRoute from "./PrivateRoute";
+import SearchPage from "../pages/SearchPage";
 
 
  export const router = createBrowserRouter([
@@ -72,12 +74,16 @@ import AllBloodDonationRequestPage from "../pages/Dashboard/AllBloodDonationRequ
       {
         path: "/blogs/:id",
         element:<BlogDetails></BlogDetails>,
+      },
+      {
+        path: "/search",
+        element: <SearchPage></SearchPage>
       }
       ]
     },
     {
       path: 'dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       children: [
         {
           path:"profile",
@@ -114,12 +120,12 @@ import AllBloodDonationRequestPage from "../pages/Dashboard/AllBloodDonationRequ
         },
         {
           path: "/dashboard/content-management/add-blog",
-          element: <AdminRoute><AddBlog /></AdminRoute>
+          element: <AddBlog />
       },
         
         {
           path: "/dashboard/content-management",
-          element: <AdminRoute><ContentManagement /></AdminRoute>
+          element: <ContentManagement />
       },
       {
         path: "/dashboard/all-blood-donation-request",

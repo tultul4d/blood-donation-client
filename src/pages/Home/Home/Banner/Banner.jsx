@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import './Banner.css'
 const Banner = () => {
     return (
@@ -12,7 +13,7 @@ const Banner = () => {
                   
                     
                    
-                    <div className=' md:flex justify-between '><button className="btn btn-outline border-0 border-b-4 mt-4">Join as a donor</button>
+                    <div className=' md:flex justify-between '><Link to="/addRequst"><button className="btn btn-outline border-0 border-b-4 mt-4">Join as a donor</button></Link>
                     <button className="btn btn-outline border-0 border-b-4 mt-4">Search Donors</button></div>
                 </div>
             </div>

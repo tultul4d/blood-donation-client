@@ -16,6 +16,10 @@ const SignIn = () => {
   const onSubmit = data => {
     console.log(data)
 
+ if (data.password !== data.confirm_password) {
+      alert("Passwords do not match!");
+      return;
+    }
     createUser(data.email, data.password)
     .then(result => {
         const loggedUser = result.user;
@@ -24,7 +28,11 @@ const SignIn = () => {
         .then(() =>{
         const userInfo = {
           name: data.name,
-          email: data.email
+          email: data.email,
+          bloodGroup: data.bloodGroup,
+          district: data.district,
+          upazila: data.upazila,
+          status: "active",
         }
             axiosPublic.post('/user', userInfo)
             .then(res =>{
@@ -33,7 +41,7 @@ const SignIn = () => {
 
                 reset();
                 Swal.fire({
-                   title: "Custom animation with Animate.css",
+                   title: "Create New Users",
                    showClass: {
                      popup: `
                        animate__animated
@@ -103,12 +111,57 @@ const SignIn = () => {
                 <input type="email" placeholder="email" {...register("email" , { required: true })} name="email" className="input input-bordered"  />
                 {errors.email && <span className="text-red-500">This field is required</span>}
               </div>
+              <div>
+                <h2 className="label-text">BloodGroup</h2>
+              <select {...register("bloodGroup", { required: true })}>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+      </select>
+              </div>
+
+
+      <div>
+        <h2 className="label-text">District</h2>
+      <select {...register("district", { required: true })}>
+        <option value="Dhaka">Dhaka</option>
+        <option value="Chittagong">Chittagong</option>
+        <option value="district">district</option>
+        <option value="Khulna ">Khulna </option>
+        <option value="Barishal ">Barishal </option>
+        <option value="Sylhet ">Sylhet </option>
+        
+       
+      </select>
+      </div>
+
+      <div>
+        <h2 className="label-text">Upazila</h2>
+      <select {...register("upazila", { required: true })}>
+        <option value="Savar">Savar</option>
+        <option value="Lalmonirhat">Lalmonirhat</option>
+        <option value="Panchagarh">Panchagarh</option>
+        <option value="Panchagarh">Panchagarh</option>
+        <option value="Naogaon">Naogaon</option>
+        <option value="Natore">Natore</option>
+        <option value="Narayanganj">Narayanganj</option>
+        <option value="Gazipur">Gazipur</option>
+        
+
+        
+      </select>
+      </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input type="password" placeholder="password" {...register("password" , { required: true })} name="password" className="input input-bordered"  />
-                {errors.password && <span className="text-red-500">This field is required</span>}
+                <input type="password" {...register("password", { required: true })} placeholder="Password" />
+      <input type="password" {...register("confirm_password", { required: true })} placeholder="Confirm Password" />
               
               </div>
               <div className="form-control mt-6">

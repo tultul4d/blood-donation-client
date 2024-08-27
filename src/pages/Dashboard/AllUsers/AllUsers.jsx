@@ -38,6 +38,21 @@ const AllUsers = () => {
       }
   })
        }
+       const handleMakeVolunteer = user => {
+        axiosSecure.patch(`/user/volunteer/${user._id}`)
+          .then(res => {
+            if (res.data.modifiedCount > 0) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${user.name} is a volunteer now!`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
+          });
+      };
 
 
        const handleDeleteUser = user =>{
@@ -114,6 +129,7 @@ const AllUsers = () => {
     <th></th>
     <th>Name</th>
     <th>email</th>
+    <th>volunteer</th>
     <th>Role</th>
     <th>Action</th>
     <th>Delate</th>
@@ -126,6 +142,13 @@ const AllUsers = () => {
             <th>{index + 1}</th>
             <td>{user.name}</td>
             <td>{user.email}</td>
+            <td>
+                  {user.role === 'admin' ? 'Admin' :
+                    user.role === 'volunteer' ? 'Volunteer' :
+                      <button onClick={() => handleMakeVolunteer(user)} className="btn btn-lg">
+                        Make Volunteer
+                      </button>}
+                </td>
             <td>
                 {user.role === 'admin' ? 'Admin' : 
                     <button onClick={() => handleMakeAdmin(user)} className="btn btn-lg">
