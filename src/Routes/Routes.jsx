@@ -23,6 +23,8 @@ import RequstView from "../pages/Dashboard/RequstView";
 import AllRequst from "../pages/Dashboard/AllRequst";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AdmineHome from "../pages/Dashboard/AdmineHome";
+import AdminRoute from "./AdminRoutes";
+import AllBloodDonationRequestPage from "../pages/Dashboard/AllBloodDonationRequestPage";
 
 
  export const router = createBrowserRouter([
@@ -61,14 +63,8 @@ import AdmineHome from "../pages/Dashboard/AdmineHome";
           loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
         },
         
-        {
-          path: "/dashboard/content-management",
-          element: <ContentManagement />
-      },
-      {
-          path: "/dashboard/content-management/add-blog",
-          element: <AddBlog />
-      },
+        
+      
       {
         path: "/blogs",
         element: <BlogPage></BlogPage>
@@ -115,7 +111,20 @@ import AdmineHome from "../pages/Dashboard/AdmineHome";
         {
           path: "/dashboard/adminHome",
           element: <AdmineHome></AdmineHome>
-        }
+        },
+        {
+          path: "/dashboard/content-management/add-blog",
+          element: <AdminRoute><AddBlog /></AdminRoute>
+      },
+        
+        {
+          path: "/dashboard/content-management",
+          element: <AdminRoute><ContentManagement /></AdminRoute>
+      },
+      {
+        path: "/dashboard/all-blood-donation-request",
+        element: <AllBloodDonationRequestPage></AllBloodDonationRequestPage>
+      }
       ]
     }
   ]);

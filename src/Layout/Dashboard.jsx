@@ -15,8 +15,11 @@ const Dashboard = () => {
                     {
                         isAdmin ? <>
                         <li><NavLink to="/dashboard/adminHome">Admin Home</NavLink></li>
-                    <li><NavLink to="/dashboard/donor">Donor</NavLink></li>
                     <li><NavLink to="/dashboard/allUser">All User</NavLink></li>
+                    <li><NavLink to="/dashboard/content-management">Add Blogs</NavLink></li>
+                    <li><NavLink to="/dashboard/all-blood-donation-request">All Request</NavLink></li>
+                    <div className="divider"></div>
+                                   <li><NavLink to="/">Go Back Home</NavLink></li>
                         </>
                         :
                         <>

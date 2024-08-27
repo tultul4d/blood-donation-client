@@ -1,10 +1,13 @@
 import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 
 
 const ContentManagement = () => {
+    const axiosSecure = useAxiosSecure();
 
     const [blogs, setBlogs] = useState([]);
     const [filter, setFilter] = useState('');
@@ -17,29 +20,25 @@ const ContentManagement = () => {
             .catch(error => console.error('Error fetching blogs:', error));
     }, [filter]);
 
-    const handlePublish = (id, status) => {
-        fetch(`http://localhost:5000/blogs/${id}/status`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status })
-        })
-        .then(res => res.json())
-        .then(data => {
+   const handlePublish = (id, status) => {
+    axiosSecure.put(`/blogs/${id}/status`, { status })
+        .then(response => {
             const updatedBlogs = blogs.map(blog => blog._id === id ? { ...blog, status } : blog);
             setBlogs(updatedBlogs);
         })
         .catch(error => console.error('Error updating blog status:', error));
-    };
+};
 
-    const handleDelete = (id) => {
-        fetch(`http://localhost:5000/blogs/${id}`, { method: 'DELETE' })
-            .then(res => res.json())
-            .then(() => {
-                const updatedBlogs = blogs.filter(blog => blog._id !== id);
-                setBlogs(updatedBlogs);
-            })
-            .catch(error => console.error('Error deleting blog:', error));
-    };
+    
+
+const handleDelete = (id) => {
+    axiosSecure.delete(`/blogs/${id}`)
+        .then(response => {
+            const updatedBlogs = blogs.filter(blog => blog._id !== id);
+            setBlogs(updatedBlogs);
+        })
+        .catch(error => console.error('Error deleting blog:', error));
+};
     return (
         <section>
             <SectionTitle 
@@ -47,6 +46,7 @@ const ContentManagement = () => {
             subHeading=" Manage and Organize Your Blogs "
            ></SectionTitle>
             <div>
+                <Link to="/dashboard/content-management/add-blog">Add Blog</Link>
         {/* <h2 className="text-center mt-10  font-bold text-3xl">Content Management</h2> */}
         <div className="text-center mx-auto mt-10">
         <button className="text-xl font-serif gap-4 mr-8" onClick={() => navigate('/dashboard/content-management/add-blog')}>Add Blog</button>
