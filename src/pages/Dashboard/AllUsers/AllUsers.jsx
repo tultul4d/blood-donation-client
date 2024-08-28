@@ -21,38 +21,40 @@ const AllUsers = () => {
     })
 
 
-    const handleMakeAdmin = user =>{
-        console.log(user);
-          axiosSecure.patch(`/user/admin/${user._id}`)
-  .then(res =>{
-      console.log(res.data);
-      if(res.data.modifiedCount > 0){
-          refetch();
-          Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: `${user.name} is an admin now! `,
-              showConfirmButton: false,
-              timer: 1500
+    const handleMakeOrRemoveAdmin = (user) => {
+        const newRole = user.role === 'admin' ? 'user' : 'admin';
+        axiosSecure.patch(`/user/${newRole}/${user._id}`)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.name} is now a ${newRole}!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             });
-      }
-  })
-       }
-       const handleMakeVolunteer = user => {
-        axiosSecure.patch(`/user/volunteer/${user._id}`)
-          .then(res => {
-            if (res.data.modifiedCount > 0) {
-              refetch();
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `${user.name} is a volunteer now!`,
-                showConfirmButton: false,
-                timer: 1500
-              });
-            }
-          });
-      };
+    };
+    
+       const handleMakeOrRemoveVolunteer = (user) => {
+        const newRole = user.role === 'volunteer' ? 'user' : 'volunteer';
+        axiosSecure.patch(`/user/${newRole}/${user._id}`)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.name} is now a ${newRole}!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+    };
+    
 
 
        const handleDeleteUser = user =>{
@@ -143,19 +145,21 @@ const AllUsers = () => {
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>
-                  {user.role === 'admin' ? 'Admin' :
-                    user.role === 'volunteer' ? 'Volunteer' :
-                      <button onClick={() => handleMakeVolunteer(user)} className="btn btn-lg">
-                        Make Volunteer
-                      </button>}
-                </td>
-            <td>
-                {user.role === 'admin' ? 'Admin' : 
-                    <button onClick={() => handleMakeAdmin(user)} className="btn btn-lg">
-                      
-                        <FaUser className="text-red-600" />
-                    </button>}
-            </td>
+    {user.role === 'admin' ? 'Admin' : (
+        <button onClick={() => handleMakeOrRemoveVolunteer(user)} className="btn btn-lg">
+            {user.role === 'volunteer' ? 'Make User' : 'Make Volunteer'}
+        </button>
+    )}
+</td>
+<td>
+  {user.role === 'admin' ? 
+    <button onClick={() => handleMakeOrRemoveAdmin(user)} className="btn btn-lg">
+      Make User
+    </button> :
+    <button onClick={() => handleMakeOrRemoveAdmin(user)} className="btn btn-lg">
+      Make Admin
+    </button>}
+</td>
             <td>
                 {user.status === 'active' ? (
                     <button onClick={() => handleBlockUser(user)} className="btn btn-ghost btn-lg">
