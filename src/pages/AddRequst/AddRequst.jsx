@@ -8,6 +8,8 @@ const AddRequst = () => {
 
     const { user } = useContext(AuthContext)
 
+    
+
     const [requesterName, setRequesterName] = useState('');
     // const [thumbnail, setThumbnail] = useState('');
     const [requesterEmail, setRequesterEmail] = useState('');
@@ -19,7 +21,7 @@ const AddRequst = () => {
     const [donationDate, setDonationDate] = useState('');
     const [donationTime, setDonationTime] = useState('');
     const [requestMessage, setRequestMessage] = useState('');
-    const [donationStatus, setDonationStatus] = useState('');
+    // const [donationStatus, setDonationStatus] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -33,9 +35,10 @@ const AddRequst = () => {
             donationDate,
             donationTime,
             requestMessage,
-            donationStatus,
+         
             hospitalName,
             recipientUpazila,
+            donationStatus: 'pending',
 
 
         };
@@ -187,7 +190,7 @@ const AddRequst = () => {
                                 className="input w-full"
                             />
                         </div>
-                        <div className="formGroup">
+                        {/* <div className="formGroup">
 
                             <label className="label text-base font-serif text-slate-900">
                                 donationStatus</label>
@@ -198,9 +201,9 @@ const AddRequst = () => {
                                 required
                                 className="input w-full"
                             />
-                        </div>
+                        </div> */}
 
-                        
+
 
                         {/* <div className="formGroup">
                         <label className="label text-base font-serif text-slate-900">Content</label>

@@ -27,6 +27,7 @@ import AdminRoute from "./AdminRoutes";
 import AllBloodDonationRequestPage from "../pages/Dashboard/AllBloodDonationRequestPage";
 import PrivateRoute from "./PrivateRoute";
 import SearchPage from "../pages/SearchPage";
+import VolunteerHome from "../pages/Dashboard/VolunteerHome";
 
 
  export const router = createBrowserRouter([
@@ -130,6 +131,10 @@ import SearchPage from "../pages/SearchPage";
       {
         path: "/dashboard/all-blood-donation-request",
         element: <AllBloodDonationRequestPage></AllBloodDonationRequestPage>
+      },
+      {
+        path: "/dashboard/volunteerHome",
+        element: <VolunteerHome></VolunteerHome>
       }
       ]
     }

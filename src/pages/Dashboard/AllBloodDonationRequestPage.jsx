@@ -27,7 +27,7 @@ const AllBloodDonationRequestPage = () => {
     
 
     const changeStatus = (id, newStatus) => {
-        axiosSecure.put(`/request${id}`, { status: newStatus })
+        axiosSecure.put(`/request/${id}`, { status: newStatus })
             .then(() => {
                 setDonationRequests(prevRequests =>
                     prevRequests.map(request =>
@@ -41,7 +41,7 @@ const AllBloodDonationRequestPage = () => {
     };
 
     const handleDelete = (id) => {
-        axiosSecure.delete(`/request${id}`)
+        axiosSecure.delete(`/request/${id}`)
             .then(() => {
                 setDonationRequests(prevRequests => prevRequests.filter(request => request._id !== id));
             })

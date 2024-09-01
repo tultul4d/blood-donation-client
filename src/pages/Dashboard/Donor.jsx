@@ -8,6 +8,7 @@ const Donor = () => {
 
     const [donationRequests, setDonationRequests] = useState([]);
     const [userName, setUserName] = useState('');
+    const [filter, setFilter] = useState('all');
     // const [request, setRequest] = useState([]); // Fetch from user context or API
     const { user } = useContext(AuthContext);
     // const remaining = donationRequests.filter(donor => donor.email === user?.email);
@@ -40,15 +41,15 @@ const Donor = () => {
                 // Optionally update the UI after a successful status change
                 setDonationRequests(prevRequests =>
                     prevRequests.map(request =>
-                        request.id === id ? { ...request, status: newStatus } : request
+                        request._id === id ? { ...request, status: newStatus } : request
                     )
                 );
-                console.log(data);
             })
             .catch(error => {
                 console.error('Error updating status:', error);
             });
     };
+
 
     const handleDelete = (id) => {
         // First, optimistically update the state by removing the item
@@ -84,6 +85,21 @@ const Donor = () => {
         <div className="p-6 bg-gray-100 min-h-screen">
             <h1 className="lg:text-3xl md:text-xl font-semibold mb-6">Welcome, {user?.displayName
             }!</h1>
+            <div className="mb-4">
+                <label htmlFor="filter" className="mr-2">Filter by status:</label>
+                <select 
+                    id="filter" 
+                    value={filter} 
+                    onChange={(e) => setFilter(e.target.value)} 
+                    className="p-2 border rounded"
+                >
+                    <option value="all">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="inprogress">In Progress</option>
+                    <option value="done">Done</option>
+                    <option value="canceled">Canceled</option>
+                </select>
+            </div>
 
             {donationRequests.length > 0 ? (
                 <div className="lg:overflow-x-auto ">
@@ -117,23 +133,25 @@ const Donor = () => {
                                             requesterName}, ${request.
                                                 requesterName}`}</td>
                                     <td className="py-3 px-6 space-x-2">
-                                        {request.
-                                            donationStatus === 'draft' && (
-                                                <>
-                                                    <button
-                                                        onClick={() => changeStatus(request.id, 'done')}
-                                                        className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
-                                                    >
-                                                        Done
-                                                    </button>
-                                                    <button
-                                                        onClick={() => changeStatus(request.id, 'canceled')}
-                                                        className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                                                    >
-                                                        Cancel
-                                                    </button>
-                                                </>
-                                            )}
+                                    {request.donationStatus === 'draft' && `${request.requesterName}, ${request.requesterEmail}`}
+                                    </td>
+                                    <td className="py-3 px-6 space-x-2">
+                                        {request.donationStatus === 'draft' && (
+                                            <>
+                                                <button
+                                                    onClick={() => changeStatus(request._id, 'done')}
+                                                    className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
+                                                >
+                                                    Done
+                                                </button>
+                                                <button
+                                                    onClick={() => changeStatus(request._id, 'canceled')}
+                                                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </>
+                                        )}
                                         <Link to={`/dashboard/edit/${request._id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
                                             Edit
                                         </Link>

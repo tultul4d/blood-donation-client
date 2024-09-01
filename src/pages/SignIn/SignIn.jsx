@@ -32,7 +32,8 @@ const SignIn = () => {
           bloodGroup: data.bloodGroup,
           district: data.district,
           upazila: data.upazila,
-          status: "active",
+          role: "user",
+          status: "Active",
         }
             axiosPublic.post('/user', userInfo)
             .then(res =>{

@@ -67,7 +67,7 @@ const RequstView = () => {
       
       {/* <div className="mt-10 float-none" dangerouslySetInnerHTML={{ __html: blog.content }}></div> */}
       
-      <Link to={"/dashboard/donor"}><button className="btn btn-active btn-accent mt-10">Go Back</button></Link>
+      <Link to={"/blogs"}><button className="btn btn-active btn-accent mt-10">Go Back</button></Link>
           </div>
           
         </div>

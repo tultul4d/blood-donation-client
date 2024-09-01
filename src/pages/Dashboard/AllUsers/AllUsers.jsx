@@ -5,11 +5,14 @@ import Swal from "sweetalert2";
 import { FaTrashAlt, FaUser } from "react-icons/fa";
 import { MdOutlineBlock } from "react-icons/md";
 import { CgUnblock } from "react-icons/cg";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { useContext } from "react";
 
 
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
+    const { user } = useContext(AuthContext);
 
     const {data: users = [], refetch} = useQuery({
         queryKey: ['users'],
@@ -55,7 +58,73 @@ const AllUsers = () => {
             });
     };
     
+    // const handleBlockUser = user => {
+    //     axiosSecure.patch(`/user/block/${user._id}`)
+    //         .then(res => {
+    //             if(res.data.modifiedCount > 0) {
+    //                 refetch();
+    //                 Swal.fire({
+    //                     position: "top-end",
+    //                     icon: "success",
+    //                     title: `${user.name} has been blocked.`,
+    //                     showConfirmButton: false,
+    //                     timer: 1500
+    //                 });
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error("Error blocking user:", error);
+    //             Swal.fire({
+    //                 position: "top-end",
+    //                 icon: "error",
+    //                 title: `Failed to block ${user.name}.`,
+    //                 showConfirmButton: true
+    //             });
+    //         });
+    // }
+    
+    // const handleUnblockUser = user => {
+    //     axiosSecure.patch(`/user/unblock/${user._id}`)
+    //         .then(res => {
+    //             if(res.data.modifiedCount > 0) {
+    //                 refetch();
+    //                 Swal.fire({
+    //                     position: "top-end",
+    //                     icon: "success",
+    //                     title: `${user.name} has been unblocked.`,
+    //                     showConfirmButton: false,
+    //                     timer: 1500
+    //                 });
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error("Error unblocking user:", error);
+    //             Swal.fire({
+    //                 position: "top-end",
+    //                 icon: "error",
+    //                 title: `Failed to unblock ${user.name}.`,
+    //                 showConfirmButton: true
+    //             });
+    //         });
+    // }
+    
 
+    const handleMakeOrRemoveblock = (user) => {
+        const newStatus = user.status === 'Active' ? 'blocked' : 'Active';
+        axiosSecure.patch(`/user/${newStatus}/${user._id}`)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.name} is now a ${newStatus}!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+    };
 
        const handleDeleteUser = user =>{
         Swal.fire({
@@ -84,38 +153,7 @@ const AllUsers = () => {
           });
      }
 
-     const handleBlockUser = user => {
-        axiosSecure.patch(`/user/block/${user._id}`)
-        .then(res => {
-            if(res.data.modifiedCount > 0){
-                refetch();
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: `${user.name} has been blocked.`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }
-        })
-    }
-
-    
-    const handleUnblockUser = user => {
-        axiosSecure.patch(`/user/unblock/${user._id}`)
-        .then(res => {
-            if(res.data.modifiedCount > 0){
-                refetch();
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: `${user.name} has been unblocked.`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }
-        })
-    }
+     
     
     return (
         <div>
@@ -160,17 +198,19 @@ const AllUsers = () => {
       Make Admin
     </button>}
 </td>
-            <td>
-                {user.status === 'active' ? (
-                    <button onClick={() => handleBlockUser(user)} className="btn btn-ghost btn-lg">
-                          <MdOutlineBlock />
-                    </button>
-                ) : (
-                    <button onClick={() => handleUnblockUser(user)} className="btn btn-ghost btn-lg">
-                     <CgUnblock />
-                    </button>
-                )}
-            </td>
+<td>
+    {user.status === 'Active' ? 
+        <button onClick={() => handleMakeOrRemoveblock(user)} className="btn btn-ghost btn-lg">
+            {/* <MdOutlineBlock /> */}
+            Block
+        </button>
+   :
+        <button onClick={() => handleMakeOrRemoveblock(user)} className="btn btn-ghost btn-lg">
+            {/* <CgUnblock /> */}
+            Unblock
+        </button>
+    }
+</td>
             <td>
                 <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-lg">
                     <FaTrashAlt className="text-red-600" />

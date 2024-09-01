@@ -23,7 +23,7 @@ const AllRequst = () => {
     }, [user?.email]);
 
     const changeStatus = (id, newStatus) => {
-        fetch(`http://localhost:5000/request/${id}/status`, {
+        fetch(`http://localhost:5000/request/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,28 +96,28 @@ const AllRequst = () => {
                                     <td className="py-3 px-6">{request.
                                         donationStatus}</td>
                                     <td className="py-3 px-6">{request.
-                                        donationStatus === 'draft' && `${request.
+                                        donationStatus === 'pending' && `${request.
                                             requesterName}, ${request.
                                                 requesterName}`}</td>
                                     <td className="py-3 px-6 space-x-2">
                                         {request.
-                                            donationStatus === 'draft' && (
+                                            donationStatus === 'pending' && (
                                                 <>
-                                                    <button
-                                                        onClick={() => changeStatus(request.id, 'done')}
-                                                        className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
-                                                    >
-                                                        Done
-                                                    </button>
-                                                    <button
-                                                        onClick={() => changeStatus(request.id, 'canceled')}
-                                                        className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                                                    >
-                                                        Cancel
-                                                    </button>
+                                                  <button
+                                                onClick={() => changeStatus(request._id, 'inprogress')}
+                                                className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
+                                            >
+                                                In Progress
+                                            </button>
+                                            <button
+                                                onClick={() => changeStatus(request._id, 'canceled')}
+                                                className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+                                            >
+                                                Cancel
+                                            </button>
                                                 </>
                                             )}
-                                        <Link to={`/dashboard/edit/${request._id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
+                                        <Link to={`/dashboard/edit/${request.id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
                                             Edit
                                         </Link>
                                         {/* <button
@@ -128,7 +128,7 @@ const AllRequst = () => {
                                         </button> */}
 
                                         <button className="btn btn-outline btn-info mt-10" onClick={() => handleDelete(request._id)}>Delete</button>
-                                        <Link to={`/dashboard/view/${request._id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
+                                        <Link to={`/dashboard/view/${request.id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
                                             View
                                         </Link>
                                     </td>

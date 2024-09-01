@@ -10,6 +10,8 @@ const Dashboard = () => {
 
     const [isAdmin] = useAdmin();
     const [isVolunteer] = useVolunteer();
+
+
     return (
         <div className="flex">
             <div className="lg:w-64 min-h-full lg:mt-16 bg-red-600">
@@ -26,7 +28,7 @@ const Dashboard = () => {
                             </>
                         ) : isVolunteer ? (
                             <>
-                                <li><NavLink to="/dashboard">Dashboard Home</NavLink></li>
+                                <li><NavLink to="/dashboard/volunteerHome">Dashboard Home</NavLink></li>
                                 <li><NavLink to="/dashboard/all-blood-donation-request">All Requests</NavLink></li>
                                 <li><NavLink to="/dashboard/content-management">Content Management</NavLink></li>
                                 <div className="divider"></div>
@@ -36,6 +38,7 @@ const Dashboard = () => {
                             <>
                                 <li><NavLink to="/dashboard/profile">Profile</NavLink></li>
                                 <li><NavLink to="/dashboard/donor">Donor</NavLink></li>
+                                <li><NavLink to="/addRequst">Create Donation Request </NavLink></li>
                                 <div className="divider"></div>
                                 <li><NavLink to="/">Go Back Home</NavLink></li>
                             </>

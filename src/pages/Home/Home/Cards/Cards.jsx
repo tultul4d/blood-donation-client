@@ -10,8 +10,8 @@ const Cards = () => {
        fetch('http://localhost:5000/request')
        .then(res => res.json())
        .then(data => {
-        const doneItems = data.filter(item => item.donationStatus === "done")
-        setRequest(doneItems)})
+        // const doneItems = data.filter(item => item.donationStatus === "do")
+        setRequest(data)})
     }, [])
     return (
         <section>
