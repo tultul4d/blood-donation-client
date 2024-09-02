@@ -40,21 +40,23 @@ const handleDelete = (id) => {
         .catch(error => console.error('Error deleting blog:', error));
 };
     return (
-        <section>
+        <section className="ml-5">
             <SectionTitle 
             heading= "Content Management"
             subHeading=" Manage and Organize Your Blogs "
            ></SectionTitle>
             <div>
-                <Link to="/dashboard/content-management/add-blog">Add Blog</Link>
+                <Link to="/dashboard/content-management/add-blog" className="lg:ml-96 md:ml-10 ml-5  btn bg-slate-400 text-white">Add Blog</Link>
         {/* <h2 className="text-center mt-10  font-bold text-3xl">Content Management</h2> */}
         <div className="text-center mx-auto mt-10">
-        <button className="text-xl font-serif gap-4 mr-8" onClick={() => navigate('/dashboard/content-management/add-blog')}>Add Blog</button>
+        <button className="text-xl font-serif gap-4 mr-8 " onClick={() => navigate('/dashboard/content-management/add-blog')}>Add Blog</button>
+        
         <select className="" onChange={(e) => setFilter(e.target.value)}>
             <option value="">All</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
         </select>
+        <br />
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-10">
             {blogs.map(blog => (

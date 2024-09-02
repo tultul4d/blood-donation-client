@@ -64,9 +64,18 @@ const AllRequst = () => {
             });
     };
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-semibold mb-6">Welcome, {user?.displayName
-            }!</h1>
+        <div className="p-6  min-h-screen rounded-xl mt-10 ml-5 bg-slate-200">
+            <div className="hero bg-teal-600 mt-2   rounded-lg">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="lg:text-4xl md:text-sm text-sm font-mono">Welcome Our Donor</h1>
+      <h2 className="text-xl font-mono">{
+                user?.displayName ? user.displayName : 'back'
+            }</h2> 
+      
+    </div>
+  </div>
+</div>
 
             {/* {donationRequests.length > 0 ? ( */}
                 <div className="overflow-x-auto">
@@ -96,39 +105,18 @@ const AllRequst = () => {
                                     <td className="py-3 px-6">{request.
                                         donationStatus}</td>
                                     <td className="py-3 px-6">{request.
-                                        donationStatus === 'pending' && `${request.
+                                        donationStatus === 'Pending' && `${request.
                                             requesterName}, ${request.
-                                                requesterName}`}</td>
+                                                requesterEmail}`}</td>
                                     <td className="py-3 px-6 space-x-2">
-                                        {request.
-                                            donationStatus === 'pending' && (
-                                                <>
-                                                  <button
-                                                onClick={() => changeStatus(request._id, 'inprogress')}
-                                                className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
-                                            >
-                                                In Progress
-                                            </button>
-                                            <button
-                                                onClick={() => changeStatus(request._id, 'canceled')}
-                                                className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                                            >
-                                                Cancel
-                                            </button>
-                                                </>
-                                            )}
-                                        <Link to={`/dashboard/edit/${request.id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
+                                        
+                                        <Link to={`/dashboard/edit/${request._id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
                                             Edit
                                         </Link>
-                                        {/* <button
-                                            onClick={() => deleteRequest(request.id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                                        >
-                                            Delete
-                                        </button> */}
+                                        
 
-                                        <button className="btn btn-outline btn-info mt-10" onClick={() => handleDelete(request._id)}>Delete</button>
-                                        <Link to={`/dashboard/view/${request.id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
+                                        <button className="btn btn-outline btn-info mt-2" onClick={() => handleDelete(request._id)}>Delete</button>
+                                        <Link to={`/dashboard/view/${request._id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
                                             View
                                         </Link>
                                     </td>
@@ -140,7 +128,7 @@ const AllRequst = () => {
             {/* ) : (
                 <p>No donation requests yet.</p>
             )} */}
-            <Link to="/addRequst" className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+            <Link to="/addRequst" className="mt-4 inline-block bg-slate-500 text-white px-4 py-2 rounded-lg hover:bg-slate-700">
                 Go Back Requst
             </Link>
         </div>

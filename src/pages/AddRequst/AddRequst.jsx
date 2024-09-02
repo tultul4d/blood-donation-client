@@ -39,7 +39,7 @@ const AddRequst = () => {
          
             hospitalName,
             recipientUpazila,
-            donationStatus: 'pending',
+            donationStatus: 'Pending',
 
 
         };

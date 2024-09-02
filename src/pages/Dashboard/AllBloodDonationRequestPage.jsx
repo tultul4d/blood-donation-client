@@ -119,11 +119,11 @@ const AllBloodDonationRequestPage = () => {
                                                 </button> */}
                                             </>
                                         )}
-                                        <Link to={`/dashboard/edit/${request._id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
+                                        <Link to={`/dashboard/edit/${request._id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
                                             Edit
                                         </Link>
                                         <button
-                                            className="btn btn-outline btn-info mt-10"
+                                            className="btn btn-outline btn-info mt-2"
                                             onClick={() => handleDelete(request._id)}
                                         >
                                             Delete

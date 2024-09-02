@@ -12,7 +12,7 @@ const DonationRequest = () => {
             .then(res => res.json())
             .then(data => {
                 console.log('Fetched data:', data); // Debugging
-                const pendingRequests = data.filter(request => request.donationStatus === 'pending');
+                const pendingRequests = data.filter(request => request.donationStatus === 'Pending');
                 console.log('Pending requests:', pendingRequests); // Debugging
                 setRequests(pendingRequests);
             })
@@ -34,10 +34,11 @@ const DonationRequest = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <h3 className="text-xl">{request.recipientName}</h3>
-                        <p>Location: {request.recipientDistrict}</p>
-                        <p>Date: {request.donationDate}</p>
-                        <p>Time: {request.donationTime}</p>
+                        <h3 className="text-xl font-mono"> <span className="text-xl font-semibold">Recipient Name:</span>  {request.recipientName}</h3>
+                        <p className="text-xl font-mono"><span className="text-xl font-semibold" >Location
+                        </span>  {request.recipientDistrict}</p>
+                        <p className="text-xl font-mono"><span className="text-xl font-semibold" >Date:</span> {request.donationDate}</p>
+                        <p className="text-xl font-mono"><span className="text-xl font-semibold">Time:</span> {request.donationTime}</p>
                         <Link to={`/details/${request._id}`} className="text-blue-500">
                                 View
                             </Link>

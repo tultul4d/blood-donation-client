@@ -82,37 +82,33 @@ const Donor = () => {
     // };
     console.log(userName);
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="lg:text-3xl md:text-xl font-semibold mb-6">Welcome, {user?.displayName
-            }!</h1>
-            <div className="mb-4">
-                <label htmlFor="filter" className="mr-2">Filter by status:</label>
-                <select 
-                    id="filter" 
-                    value={filter} 
-                    onChange={(e) => setFilter(e.target.value)} 
-                    className="p-2 border rounded"
-                >
-                    <option value="all">All</option>
-                    <option value="pending">Pending</option>
-                    <option value="inprogress">In Progress</option>
-                    <option value="done">Done</option>
-                    <option value="canceled">Canceled</option>
-                </select>
-            </div>
+        <div className="p-6 rounded-xl mt-10 ml-5 bg-slate-200 min-h-screen">
+            
+            <div className="hero bg-teal-600 mt-2   rounded-lg">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="lg:text-4xl md:text-sm text-sm font-mono">Welcome Our Donor</h1>
+      <h2 className="text-xl font-mono">{
+                user?.displayName ? user.displayName : 'back'
+            }</h2> 
+      
+    </div>
+  </div>
+</div>
+            
 
             {donationRequests.length > 0 ? (
                 <div className="lg:overflow-x-auto ">
                     <table className="lg:min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-                        <thead className="bg-gray-200">
+                        <thead className="bg-gray-200 w-auto rounded-lg">
                             <tr>
-                                <th className="py-3 px-6 text-left text-gray-700">Recipient Name</th>
-                                <th className="py-3 px-6 text-left text-gray-700">Location</th>
-                                <th className="py-3 px-6 text-left text-gray-700">Date</th>
-                                <th className="py-3 px-6 text-left text-gray-700">Time</th>
-                                <th className="py-3 px-6 text-left text-gray-700">Status</th>
-                                <th className="py-3 px-6 text-left text-gray-700">Donor Info</th>
-                                <th className="py-3 px-6 text-left text-gray-700">Actions</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Recipient Name</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Location</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Date</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Time</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Status</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Donor Info</th>
+                                <th className="py-2 px-4 text-left text-gray-700">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,42 +124,28 @@ const Donor = () => {
                                         donationTime}</td>
                                     <td className="py-3 px-6">{request.
                                         donationStatus}</td>
-                                    <td className="py-3 px-6">{request.
+                                    {/* <td className="py-3 px-6">{request.
                                         donationStatus === 'draft' && `${request.
                                             requesterName}, ${request.
-                                                requesterName}`}</td>
-                                    <td className="py-3 px-6 space-x-2">
-                                    {request.donationStatus === 'draft' && `${request.requesterName}, ${request.requesterEmail}`}
-                                    </td>
+                                                requesterName}`}</td> */}
+                                     <td className="py-3 px-6">{request.
+                                        donationStatus === 'Pending' && `${request.
+                                            requesterName}, ${request.
+                                                requesterEmail}`}</td>
                                     <td className="py-3 px-6 space-x-2">
                                         {request.donationStatus === 'draft' && (
                                             <>
-                                                <button
-                                                    onClick={() => changeStatus(request._id, 'done')}
-                                                    className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
-                                                >
-                                                    Done
-                                                </button>
-                                                <button
-                                                    onClick={() => changeStatus(request._id, 'canceled')}
-                                                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                                                >
-                                                    Cancel
-                                                </button>
+                                                
+                                                
                                             </>
                                         )}
-                                        <Link to={`/dashboard/edit/${request._id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
+                                        <Link to={`/dashboard/edit/${request._id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
                                             Edit
                                         </Link>
-                                        {/* <button
-                                            onClick={() => deleteRequest(request.id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                                        >
-                                            Delete
-                                        </button> */}
+                                       
 
-                                        <button className="btn btn-outline btn-info mt-10" onClick={() => handleDelete(request._id)}>Delete</button>
-                                        <Link to={`/dashboard/view/${request._id}`} className="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">
+                                        <button className="btn btn-outline btn-info mt-2" onClick={() => handleDelete(request._id)}>Delete</button>
+                                        <Link to={`/dashboard/view/${request._id}`} className="bg-gray-500 text-white px-2 py-1 mt-2 -mr-5 rounded-lg hover:bg-gray-600">
                                             View
                                         </Link>
                                     </td>
@@ -173,9 +155,9 @@ const Donor = () => {
                     </table>
                 </div>
             ) : (
-                <p>No donation requests yet.</p>
+                <p className="text-slate-950">No donation requests yet.</p>
             )}
-            <Link to="/dashboard/my-donation-requests" className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+            <Link to="/dashboard/my-donation-requests" className="mt-4 inline-block bg-slate-500 text-white px-4 py-2 rounded-lg hover:bg-slate-700 ">
                 View My All Requests
             </Link>
         </div>
