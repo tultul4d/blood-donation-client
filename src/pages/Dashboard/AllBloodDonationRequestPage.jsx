@@ -1,49 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 
 const AllBloodDonationRequestPage = () => {
     const axiosSecure = useAxiosSecure();
     const [donationRequests, setDonationRequests] = useState([]);
-    console.log(donationRequests);
+    const [filter, setFilter] = useState("all"); // State for filtering
 
-    const donationRequestss = async () => {
-        try{
-            const request = await axiosSecure.get('/request');
-            setDonationRequests(request.data);
-
-        }
-        catch (error) {
-            // clg 
+    const fetchDonationRequests = async () => {
+        try {
+            const response = await axiosSecure.get('/request');
+            setDonationRequests(response.data);
+        } catch (error) {
+            console.error('Error fetching donation requests:', error);
         }
     };
 
     useEffect(() => {
-        donationRequestss();
-    }, [])
-    
+        fetchDonationRequests();
+    }, []);
 
-    const changeStatus = (id, newStatus) => {
-        axiosSecure.put(`/request/${id}`, { status: newStatus })
-            .then(() => {
-                setDonationRequests(prevRequests =>
-                    prevRequests.map(request =>
-                        request._id === id ? { ...request, donationStatus: newStatus } : request
-                    )
+    // Filter the donation requests based on the selected filter
+    const filteredRequests = donationRequests.filter(request => 
+        filter === "all" || request.donationStatus === filter
+    );
+
+    const changeStatus = (id, status) => {
+        axiosSecure.put(`/request/${id}/status`, { status })
+            .then(response => {
+                const updatedRequests = donationRequests.map(request => 
+                    request._id === id ? { ...request, donationStatus: status } : request
                 );
+                setDonationRequests(updatedRequests);
             })
-            .catch(error => {
-                console.error('Error updating status:', error);
-            });
+            .catch(error => console.error('Error updating request status:', error));
     };
 
     const handleDelete = (id) => {
         axiosSecure.delete(`/request/${id}`)
             .then(() => {
-                setDonationRequests(prevRequests => prevRequests.filter(request => request._id !== id));
+                setDonationRequests(prevRequests => 
+                    prevRequests.filter(request => request._id !== id)
+                );
             })
             .catch(error => {
                 console.error('Error deleting request:', error);
@@ -57,13 +56,29 @@ const AllBloodDonationRequestPage = () => {
                     heading="All Blood Donation Requests"
                     subHeading="Manage and review all donation requests"
                 />
+
+                {/* Filter Options as Button-like elements */}
+                <div className="mb-4 space-x-2">
+                    {["all", "Pending", "In Progress", "Completed", "Canceled"].map((status) => (
+                        <button
+                            key={status}
+                            onClick={() => setFilter(status)}
+                            className={`px-4 py-2 rounded-lg 
+                            ${filter === status ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}
+                            hover:bg-blue-600 transition-all duration-150`}
+                        >
+                            {status === "all" ? "All" : status}
+                        </button>
+                    ))}
+                </div>
+
                 <table className="table w-full">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Recipient Name</th>
-                            <th>Hospital Name</th>
-                            <th>Full Address</th>
+                            {/* <th>Hospital Name</th> */}
+                            <th>Recipient location</th>
                             <th>Donation Date</th>
                             <th>Donation Time</th>
                             <th>Donation Status</th>
@@ -71,12 +86,12 @@ const AllBloodDonationRequestPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {donationRequests.length > 0 ? (
-                            donationRequests.map((request, index) => (
+                        {filteredRequests.length > 0 ? (
+                            filteredRequests.map((request, index) => (
                                 <tr key={request._id}>
                                     <td>{index + 1}</td>
                                     <td>{request.recipientName}</td>
-                                    <td>{request.hospitalName}</td>
+                                    {/* <td>{request.hospitalName}</td> */}
                                     <td>{request.fullAddress}</td>
                                     <td>{request.donationDate}</td>
                                     <td>{request.donationTime}</td>
@@ -84,7 +99,7 @@ const AllBloodDonationRequestPage = () => {
                                     <td className="py-3 px-6 space-x-2">
                                         {request.donationStatus === 'Pending' && (
                                             <>
-                                                <button
+                                                {/* <button
                                                     onClick={() => changeStatus(request._id, 'In Progress')}
                                                     className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600"
                                                 >
@@ -101,7 +116,7 @@ const AllBloodDonationRequestPage = () => {
                                                     className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
                                                 >
                                                     Cancel
-                                                </button>
+                                                </button> */}
                                             </>
                                         )}
                                         <Link to={`/dashboard/edit/${request._id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">

@@ -22,28 +22,28 @@ const AllRequst = () => {
             });
     }, [user?.email]);
 
-    const changeStatus = (id, newStatus) => {
-        fetch(`http://localhost:5000/request/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ status: newStatus }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Optionally update the UI after a successful status change
-                setDonationRequests(prevRequests =>
-                    prevRequests.map(request =>
-                        request.id === id ? { ...request, status: newStatus } : request
-                    )
-                );
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error updating status:', error);
-            });
-    };
+    // const changeStatus = (id, newStatus) => {
+    //     fetch(`http://localhost:5000/request/${id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ status: newStatus }),
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Optionally update the UI after a successful status change
+    //             setDonationRequests(prevRequests =>
+    //                 prevRequests.map(request =>
+    //                     request.id === id ? { ...request, status: newStatus } : request
+    //                 )
+    //             );
+    //             console.log(data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error updating status:', error);
+    //         });
+    // };
 
     const handleDelete = (id) => {
         // First, optimistically update the state by removing the item

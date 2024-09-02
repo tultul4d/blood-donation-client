@@ -36,7 +36,7 @@ const Dashboard = () => {
                             </>
                         ) : (
                             <>
-                                <li><NavLink to="/dashboard/profile">Profile</NavLink></li>
+                                
                                 <li><NavLink to="/dashboard/donor">Donor</NavLink></li>
                                 <li><NavLink to="/addRequst">Create Donation Request </NavLink></li>
                                 <div className="divider"></div>
