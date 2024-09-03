@@ -1,16 +1,24 @@
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useVolunteer from "../hooks/useVolunteer";
+import { useEffect, useState } from "react";
 
 
 
 
 
 const Dashboard = () => {
-
+    // const [totalFunds, setTotalFunds] = useState(0);
     const [isAdmin] = useAdmin();
     const [isVolunteer] = useVolunteer();
 
+
+    const fetchTotalFunds = async () => {
+        const response = await fetch('/dashboard/total-funds');
+        const data = await response.json(); // This line expects JSON
+        // console.log(data.totalFunds);
+      };
+      
 
     return (
         <div className="flex">
@@ -46,6 +54,10 @@ const Dashboard = () => {
                     
                     
                 </ul>
+
+                <div>
+                <h3>Total Funds Collected: ${fetchTotalFunds}</h3>
+            </div>
             </div>
 
 

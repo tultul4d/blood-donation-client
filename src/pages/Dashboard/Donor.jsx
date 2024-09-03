@@ -16,7 +16,7 @@ const Donor = () => {
 
     useEffect(() => {
         // Fetch the donor's name and donation requests (limit 3)
-        fetch('http://localhost:5000/request')
+        fetch('https://blood-donation-server-five.vercel.app/request')
             .then(response => response.json())
             .then(data => {
                 const userRequests = data.filter(request => request.requesterEmail === user?.email);
@@ -29,7 +29,7 @@ const Donor = () => {
 
 
     const changeStatus = (id, newStatus) => {
-        fetch(`http://localhost:5000/request/${id}/status`, {
+        fetch(`https://blood-donation-server-five.vercel.app/request/${id}/status`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,10 +57,10 @@ const Donor = () => {
         setDonationRequests(updatedRequest);
     
         // Then, make the delete request to the server
-        fetch(`http://localhost:5000/request/${id}`, { method: 'DELETE' })
+        fetch(`https://blood-donation-server-five.vercel.app/request/${id}`, { method: 'DELETE' })
             .then(res => res.json())
             .then(() => {
-                console.log('Request deleted successfully');
+                // console.log('Request deleted successfully');
             })
             .catch(error => {
                 console.error('Error deleting request:', error);
@@ -72,7 +72,7 @@ const Donor = () => {
     
 
     // const handleDelete = (id) => {
-    //     fetch(`http://localhost:5000/request/${id}`, { method: 'DELETE' })
+    //     fetch(`https://blood-donation-server-five.vercel.app/request/${id}`, { method: 'DELETE' })
     //         .then(res => res.json())
     //         .then(() => {
     //             const updatedRequest = request.filter(request => request._id !== id);
@@ -80,7 +80,7 @@ const Donor = () => {
     //         })
     //         .catch(error => console.error('Error deleting blog:', error));
     // };
-    console.log(userName);
+    // console.log(userName);
     return (
         <div className="p-6 rounded-xl mt-10 ml-5 bg-slate-200 min-h-screen">
             

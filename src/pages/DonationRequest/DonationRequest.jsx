@@ -8,12 +8,12 @@ const DonationRequest = () => {
     const [requests, setRequests] = useState([]);
     
     useEffect(() => {
-        fetch('http://localhost:5000/request')
+        fetch('https://blood-donation-server-five.vercel.app/request')
             .then(res => res.json())
             .then(data => {
-                console.log('Fetched data:', data); // Debugging
+                // console.log('Fetched data:', data); 
                 const pendingRequests = data.filter(request => request.donationStatus === 'Pending');
-                console.log('Pending requests:', pendingRequests); // Debugging
+                // console.log('Pending requests:', pendingRequests); 
                 setRequests(pendingRequests);
             })
             .catch(error => console.error('Error fetching requests:', error));

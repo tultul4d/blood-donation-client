@@ -14,7 +14,8 @@ const Banner = () => {
                     
                    
                     <div className=' flex flex-col md:flex-row justify-between gap-4 '><Link to="/addRequst"><button className="btn btn-outline border-0 border-b-4 mt-4">Join as a donor</button></Link>
-                    <button className="btn btn-outline border-0 border-b-4 mt-4">Search Donors</button></div>
+                    <Link to="/search"><button className="btn btn-outline border-0 border-b-4 mt-4">Search Donors</button></Link>
+                    </div>
                 </div>
             </div>
         </div>

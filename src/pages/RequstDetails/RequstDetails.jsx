@@ -14,7 +14,7 @@ const RequstDetails = () => {
 
     useEffect(() => {
         
-        fetch(`http://localhost:5000/request/${id}`)
+        fetch(`https://blood-donation-server-five.vercel.app/request/${id}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Request not found');
@@ -40,10 +40,10 @@ const RequstDetails = () => {
     };
 
     const handleConfirmDonation = () => {
-        fetch(`http://localhost:5000/request/${id}`, {
+        fetch(`https://blood-donation-server-five.vercel.app/request/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ donationStatus: 'In Progress', donorName: user.displayName, donorEmail: user.email }),
+            body: JSON.stringify({ donationStatus: 'inprogress', donorName: user.displayName, donorEmail: user.email }),
         })
             .then((res) => res.json())
             .then((data) => {

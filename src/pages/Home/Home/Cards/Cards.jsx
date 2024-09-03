@@ -7,7 +7,7 @@ import RequestItem from "../../../Shared/RequestItem/RequestItem";
 const Cards = () => {
     const [request, setRequest] = useState([]);
     useEffect( () =>{
-       fetch('http://localhost:5000/request')
+       fetch('https://blood-donation-server-five.vercel.app/request')
        .then(res => res.json())
        .then(data => {
         // const doneItems = data.filter(item => item.donationStatus === "do")

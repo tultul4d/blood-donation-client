@@ -14,7 +14,7 @@ const SignIn = () => {
   const axiosPublic = useAxiosPublic();
 
   const onSubmit = data => {
-    console.log(data)
+    // console.log(data)
 
  if (data.password !== data.confirm_password) {
       alert("Passwords do not match!");
@@ -23,7 +23,7 @@ const SignIn = () => {
     createUser(data.email, data.password)
     .then(result => {
         const loggedUser = result.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         updateUserProfile(data.name, data.photoURL)
         .then(() =>{
         const userInfo = {
@@ -38,7 +38,7 @@ const SignIn = () => {
             axiosPublic.post('/user', userInfo)
             .then(res =>{
               if(res.data.insertedId){
-                console.log('user added to the database');
+                // console.log('user added to the database');
 
                 reset();
                 Swal.fire({
@@ -125,7 +125,6 @@ const SignIn = () => {
         <option value="O-">O-</option>
       </select>
               </div>
-
 
       <div>
         <h2 className="label-text">District</h2>

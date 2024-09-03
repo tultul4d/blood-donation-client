@@ -14,7 +14,7 @@ const ContentManagement = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/blogs${filter ? `?status=${filter}` : ''}`)
+        fetch(`https://blood-donation-server-five.vercel.app/blogs${filter ? `?status=${filter}` : ''}`)
             .then(res => res.json())
             .then(data => setBlogs(data))
             .catch(error => console.error('Error fetching blogs:', error));

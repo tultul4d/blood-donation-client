@@ -1,6 +1,7 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 
 const RequestUpdate = () => {
     const request = useLoaderData();
@@ -24,7 +25,7 @@ const RequestUpdate = () => {
 
         const updated = {recipientName, hospitalName, fullAddress, donationDate, donationTime, donationStatus };
 
-        fetch(`http://localhost:5000/request/${request._id}`, {
+        fetch(`https://blood-donation-server-five.vercel.app/request/${request._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,9 +40,16 @@ const RequestUpdate = () => {
     };
 
     return (
-        <div>
+    <section>
+        <SectionTitle
+                heading="Update Form Our Requst"
+                subHeading="Update  "
+            ></SectionTitle>
+        <div className="mt-10 ml-16">
             <form onSubmit={handleUpdate}>
+                <h2 className="text-xl font-semibold">Name</h2>
             <input 
+            
                     type="text" 
                     className="w-full" 
                     name="recipientName" 
@@ -50,6 +58,7 @@ const RequestUpdate = () => {
                     required 
                 />
                 <br />
+                <h2 className="text-xl font-semibold">HospitalName</h2>
                 <input 
                     type="text" 
                     className="w-full" 
@@ -59,31 +68,37 @@ const RequestUpdate = () => {
                     required 
                 />
                 <br />
+                <h2 className="text-xl font-semibold">FullAddress</h2>
                 <input 
                     type="text" 
+                    className="w-full"
                     name="fullAddress" 
                     defaultValue={request?.fullAddress} 
                     placeholder="Full Address" 
                     required 
                 />
                 <br />
+                <h2 className="text-xl font-semibold">DonationDate</h2>
                 <input 
                     type="text" 
+                    className="w-full"
                     name="donationDate" 
                     defaultValue={request?.donationDate} 
                     placeholder="Donation Date" 
                     required 
                 />
                 <br />
+                <h2 className="text-xl font-semibold">DonationTime</h2>
                 <input 
                     type="text" 
+                    className="w-full"
                     name="donationTime" 
                     defaultValue={request?.donationTime} 
                     placeholder="Donation Time" 
                     required 
                 />
                 <br />
-                {/* Show donation status selection only for volunteers */}
+               <h2 className="text-xl font-semibold">Status</h2>
                 {request.role === 'volunteer' && (
                     <select name="donationStatus" defaultValue={request?.donationStatus} className="w-full">
                         <option value="Pending">Pending</option>
@@ -93,9 +108,10 @@ const RequestUpdate = () => {
                     </select>
                 )}
                 <br />
-                <button type="submit" className="btn">Update</button>
+                <button type="submit" className="btn mt-5">Update</button>
             </form>
         </div>
+    </section>
     );
 };
 

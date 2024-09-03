@@ -23,7 +23,6 @@ import RequstView from "../pages/Dashboard/RequstView";
 import AllRequst from "../pages/Dashboard/AllRequst";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AdmineHome from "../pages/Dashboard/AdmineHome";
-import AdminRoute from "./AdminRoutes";
 import AllBloodDonationRequestPage from "../pages/Dashboard/AllBloodDonationRequestPage";
 import PrivateRoute from "./PrivateRoute";
 import SearchPage from "../pages/SearchPage";
@@ -62,8 +61,8 @@ import VolunteerHome from "../pages/Dashboard/VolunteerHome";
         },
         {
           path: '/details/:id',
-          element: <RequstDetails></RequstDetails>,
-          loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
+          element: <PrivateRoute><RequstDetails></RequstDetails></PrivateRoute>,
+          loader: ({params}) => fetch(`https://blood-donation-server-five.vercel.app/request/${params.id}`)
         },
         
         
@@ -97,12 +96,12 @@ import VolunteerHome from "../pages/Dashboard/VolunteerHome";
         {
           path: "/dashboard/edit/:id",
           element:<RequstUpdate></RequstUpdate>,
-          loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
+          loader: ({params}) => fetch(`https://blood-donation-server-five.vercel.app/request/${params.id}`)
         },
         {
           path: "/dashboard/view/:id",
           element: <RequstView></RequstView>,
-          loader: ({params}) => fetch(`http://localhost:5000/request/${params.id}`)
+          loader: ({params}) => fetch(`https://blood-donation-server-five.vercel.app/request/${params.id}`)
         },
         {
           path: "/dashboard/my-donation-requests",

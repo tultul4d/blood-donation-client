@@ -8,7 +8,7 @@ const BlogDetails = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/blogs/${id}`)
+        fetch(`https://blood-donation-server-five.vercel.app/blogs/${id}`)
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Blog not found');

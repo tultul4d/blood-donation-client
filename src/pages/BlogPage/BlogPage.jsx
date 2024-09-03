@@ -7,7 +7,7 @@ const BlogPage = () => {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/blogs')
+        fetch('https://blood-donation-server-five.vercel.app/blogs')
             .then(res => res.json())
             .then(data => setBlogs(data))
             .catch(error => console.error('Error fetching blogs:', error));

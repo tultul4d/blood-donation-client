@@ -1,6 +1,4 @@
 import { useState } from "react";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import { useEffect } from "react";
 
 
 const SearchPage = () => {
@@ -8,54 +6,32 @@ const SearchPage = () => {
   const [district, setDistrict] = useState('');
   const [upazila, setUpazila] = useState('');
   const [donors, setDonors] = useState([]);
-  const [districtOptions, setDistrictOptions] = useState([]);
-  const [upazilaOptions, setUpazilaOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    // Load districts and upazilas
-    const fetchOptions = async () => {
-      try {
-        const districtsResponse = await axiosPublic.get('/districts');
-        setDistrictOptions(districtsResponse.data);
-        
-        const upazilasResponse = await axiosPublic.get('/upazilas');
-        setUpazilaOptions(upazilasResponse.data);
-      } catch (error) {
-        console.error('Error fetching options:', error);
-      }
-    };
-
-    fetchOptions();
-  }, []);
-
-  const handleSearch = async () => {
-    setLoading(true);
-    setError(null);
+  const handleSearch = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axiosPublic.get('/dashboard', {
-        params: { bloodGroup, district, upazila }
-      });
-      setDonors(response.data);
+      const response = await fetch(`/request/:id?bloodGroup=${bloodGroup}`);
+      
+      if (!response.ok) {
+        // If the response is not OK, log an error with status and text
+        console.error('Server Error:', response.status, response.statusText);
+        return;
+      }
+      
+      const data = await response.json(); // Parse the response directly as JSON
+      setDonors(data); // Set the donors list
     } catch (error) {
-      setError('Failed to fetch donors.');
-      console.error('Error fetching donors:', error);
+      console.error('Error:', error);
     }
-    setLoading(false);
   };
+  
 
   return (
-    <div className="search-page">
-      <h1>Search Donors</h1>
-      <form onSubmit={e => {
-        e.preventDefault();
-        handleSearch();
-      }}>
+    <div>
+      <form onSubmit={handleSearch}>
         <div>
-          <label>Blood Group</label>
-          <select value={bloodGroup} onChange={e => setBloodGroup(e.target.value)}>
+          <label>Blood Group:</label>
+          <select value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)}>
             <option value="">Select Blood Group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
@@ -67,40 +43,36 @@ const SearchPage = () => {
             <option value="O-">O-</option>
           </select>
         </div>
+
         <div>
-          <label>District</label>
-          <select value={district} onChange={e => setDistrict(e.target.value)}>
+          <label>District:</label>
+          <select value={district} onChange={(e) => setDistrict(e.target.value)}>
             <option value="">Select District</option>
-            {districtOptions.map(d => (
-              <option key={d} value={d}>{d}</option>
-            ))}
+            {/* Populate districts from your data */}
           </select>
         </div>
+
         <div>
-          <label>Upazila</label>
-          <select value={upazila} onChange={e => setUpazila(e.target.value)}>
+          <label>Upazila:</label>
+          <select value={upazila} onChange={(e) => setUpazila(e.target.value)}>
             <option value="">Select Upazila</option>
-            {upazilaOptions.map(u => (
-              <option key={u} value={u}>{u}</option>
-            ))}
+            {/* Populate upazilas based on selected district */}
           </select>
         </div>
+
         <button type="submit">Search</button>
       </form>
 
-      {loading && <p>Loading...</p>}
-      {error && <p className="error">{error}</p>}
-
       {donors.length > 0 && (
-        <div className="donor-list">
-          {donors.map(donor => (
-            <div key={donor.id} className="donor-card">
-              <h3>{donor.name}</h3>
-              <p>Blood Group: {donor.bloodGroup}</p>
-              <p>District: {donor.district}</p>
-              <p>Upazila: {donor.upazila}</p>
-            </div>
-          ))}
+        <div>
+          <h2>Donor List</h2>
+          <ul>
+            {donors.map((donor) => (
+              <li key={donor.id}>
+                {donor.name} - {donor.bloodGroup} - {donor.district}, {donor.upazila}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

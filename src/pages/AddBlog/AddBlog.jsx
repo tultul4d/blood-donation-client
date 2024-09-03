@@ -19,7 +19,7 @@ const AddBlog = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newBlog = { title,  content, img, name, date, excerpt };
-        fetch('http://localhost:5000/blogs', {
+        fetch('https://blood-donation-server-five.vercel.app/blogs', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newBlog)

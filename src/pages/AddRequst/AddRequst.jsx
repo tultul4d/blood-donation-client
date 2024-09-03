@@ -43,7 +43,7 @@ const AddRequst = () => {
 
 
         };
-        fetch('http://localhost:5000/request', {
+        fetch('https://blood-donation-server-five.vercel.app/request', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newRequst)

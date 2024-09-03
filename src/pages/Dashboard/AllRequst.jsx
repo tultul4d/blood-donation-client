@@ -7,11 +7,24 @@ import { Link } from "react-router-dom";
 
 const AllRequst = () => {
     const [donationRequests, setDonationRequests] = useState([]);
+    
+
+
     const [userName, setUserName] = useState('');
     const { user } = useContext(AuthContext);
+
+    // const requstPerPage = 10;
+    // const numberOfPages = Math.ceil(count / requstPerPage);
+
+
+    // const pages = []
+    // for(let i = 0; i < numberOfPages; i++ ){
+    //     pages.push(i)
+    // }
+    // console.log(pages);
     useEffect(() => {
         // Fetch the donor's name and donation requests (limit 3)
-        fetch('http://localhost:5000/request')
+        fetch('https://blood-donation-server-five.vercel.app/request')
             .then(response => response.json())
             .then(data => {
                 const userRequests = data.filter(request => request.requesterEmail === user?.email);
@@ -23,7 +36,7 @@ const AllRequst = () => {
     }, [user?.email]);
 
     // const changeStatus = (id, newStatus) => {
-    //     fetch(`http://localhost:5000/request/${id}`, {
+    //     fetch(`https://blood-donation-server-five.vercel.app/request/${id}`, {
     //         method: 'PUT',
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -51,10 +64,10 @@ const AllRequst = () => {
         setDonationRequests(updatedRequest);
     
         // Then, make the delete request to the server
-        fetch(`http://localhost:5000/request/${id}`, { method: 'DELETE' })
+        fetch(`https://blood-donation-server-five.vercel.app/request/${id}`, { method: 'DELETE' })
             .then(res => res.json())
             .then(() => {
-                console.log('Request deleted successfully');
+                // console.log('Request deleted successfully');
             })
             .catch(error => {
                 console.error('Error deleting request:', error);
